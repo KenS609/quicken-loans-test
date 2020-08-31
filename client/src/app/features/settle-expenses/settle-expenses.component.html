@@ -1,0 +1,32 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <mat-card class="bg-light">
+        <mat-card-header class="align-items-center pb-3">
+          <mat-card-title class="mb-0">
+            Users
+          </mat-card-title>
+          <div class="spacer"></div>
+          <button mat-raised-button color="primary" class="mr-2" (click)="addUser()" [disabled]="loading$ | async">Add
+            User</button>
+          <button mat-raised-button color="accent" (click)="calculateExpenses()"
+            [disabled]="(loading$ | async) || ((userExpenses$ | async).length < 2)">Calculate</button>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content class="pt-3">
+          <ng-container *ngIf="(userExpenses$ | async).length else noUsers">
+            <app-user-detail [users]="(userExpenses$ | async)"></app-user-detail>
+          </ng-container>
+          <ng-template #noUsers>
+            <div class="no-data text-center pt-4">
+              <img src="assets/images/no-data.svg" width="300px">
+              <h2 class="mb-0 mt-4">No users added yet!</h2>
+              <p>Start adding users and their expenses to settle their expenses.</p>
+            </div>
+          </ng-template>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+// Body
+$body-color-bg: #cde7ff;
+$body-color-text: #424242;
+
+* {
+  box-sizing: border-box;
+
+  &:active,
+  &:hover,
+  &:focus {
+    outline: 0;
+  }
+}
+
+html {
+  height: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  background-color: $body-color-bg;
+  color: $body-color-text;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  &:focus {
+    outline: none !important;
+  }
+}
+
+.fs-20 {
+  font-size: 20px;
+}
+
+.fs-18 {
+  font-size: 18px;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mat-card-header-text {
+  margin: 0 !important;
+}
+
+.mat-expansion-panel-body {
+  padding: 0 14px !important;
+}
+
+.box-shadow-none {
+  box-shadow: none !important;
+}
+
+@import "node_modules/bootstrap/scss/bootstrap";

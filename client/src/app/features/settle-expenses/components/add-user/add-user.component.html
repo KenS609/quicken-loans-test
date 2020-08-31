@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Add New User</h2>
+<form>
+  <mat-form-field class="w-100">
+    <mat-label>Name</mat-label>
+    <input matInput [formControl]="nameFormControl">
+    <mat-error *ngIf="nameFormControl.hasError('required')">
+      Please enter name
+    </mat-error>
+    <mat-error *ngIf="!nameFormControl.hasError('required') && nameFormControl.hasError('whitespace')"> Please
+      enter valid name</mat-error>
+    <mat-error *ngIf="!nameFormControl.hasError('required') && nameFormControl.hasError('pattern')"> Only
+      Alphabets
+      are allowed </mat-error>
+  </mat-form-field>
+</form>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="nameFormControl.value" cdkFocusInitial color="primary"
+    [disabled]="nameFormControl.invalid">Add</button>
+</mat-dialog-actions>

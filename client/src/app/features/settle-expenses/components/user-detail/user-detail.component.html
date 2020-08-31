@@ -1,0 +1,61 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let user of users;trackBy:trackById" (opened)="toggleUserPanel(user.id)"
+    (closed)="onPanelClose(user.id)" [expanded]="(activeUserPanel$ | async) === user.id" hideToggle>
+    <mat-expansion-panel-header class="extension-panel p-0">
+      <mat-panel-title class="align-items-center mx-2">
+        <img src="assets/images/person.png" alt="" class="user-avatar">
+        <div class="w-100">
+          <p class="ml-2 mb-0 fs-18 text-capitalize">{{ user.userName}}</p>
+          <p class="ml-2 mb-0 text-muted text-capitalize">Total Spent: ${{user.totalAmount}}</p>
+        </div>
+        <div class="spacer"></div>
+        <button mat-mini-fab color="warn" matTooltip="Remove User" class="mr-1 box-shadow-none"
+          (click)="removeUser($event, user)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-mini-fab color="primary" matTooltip="Add Expense" class="mr-1 box-shadow-none"
+          (click)="addExpense($event, user.id)">
+          <mat-icon>add</mat-icon>
+        </button>
+        <button mat-mini-fab color="primary" class="box-shadow-none">
+          <mat-icon *ngIf="(activeUserPanel$ | async) !== user.id">expand_more</mat-icon>
+          <mat-icon *ngIf="(activeUserPanel$ | async) === user.id">expand_less</mat-icon>
+        </button>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-divider></mat-divider>
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let expense of user.expensesList;trackBy:trackById">
+            <td class="align-middle no-wrap">${{expense.amount}}</td>
+            <td class="align-middle no-wrap">{{expense.date | date: 'dd/MM/yyyy'}}</td>
+            <td class="align-middle no-wrap">{{expense.description || 'N/A'}}</td>
+            <td class="align-middle no-wrap">
+              <button mat-mini-fab color="accent" matTooltip="Edit Expense" class="mr-2"
+                (click)="editExpense(user.id, expense)">
+                <mat-icon>create</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn" matTooltip="Delete Expense" (click)="removeExpense(user.id, expense)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="!user.expensesList.length">
+            <td colspan="4" class="text-center p-3">
+              No expenses added yet.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
